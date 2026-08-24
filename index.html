@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Appointer — Appointments. Right inside WhatsApp.</title>
+  <meta name="description" content="Appointer is building a simpler way for businesses and customers to schedule, manage, and stay updated on appointments through WhatsApp.">
+  <meta name="theme-color" content="#f7f9f7">
+  <meta property="og:title" content="Appointer — Appointments. Right inside WhatsApp.">
+  <meta property="og:description" content="Make booking appointments as easy as sending a message. Appointer is coming soon.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://appointer.in/">
+  <meta property="og:site_name" content="Appointer">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Appointer — Appointments. Right inside WhatsApp.">
+  <meta name="twitter:description" content="Make booking appointments as easy as sending a message. Appointer is coming soon.">
+
+  <style>
+    :root {
+      --ink: #11231b;
+      --ink-soft: #55635d;
+      --ink-muted: #7d8983;
+      --paper: #f7f9f7;
+      --surface: #ffffff;
+      --surface-soft: #eef3f0;
+      --line: #dfe7e2;
+      --green: #178d5a;
+      --green-dark: #0e6d43;
+      --green-soft: #dff4e9;
+      --green-pale: #edf9f3;
+      --warm: #f2eee8;
+      --shadow-sm: 0 1px 2px rgba(17, 35, 27, .04), 0 8px 24px rgba(17, 35, 27, .06);
+      --shadow-lg: 0 24px 70px rgba(21, 48, 35, .12), 0 4px 16px rgba(21, 48, 35, .05);
+      --radius-sm: 12px;
+      --radius: 20px;
+      --radius-lg: 30px;
+      --container: 1180px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { color: var(--ink); background: #bdebd2; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: 520px;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(36, 178, 111, .10), transparent 34%),
+        linear-gradient(180deg, #fbfcfb 0%, rgba(247, 249, 247, 0) 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    img { max-width: 100%; }
+    section { scroll-margin-top: 100px; }
+
+    .container {
+      width: min(calc(100% - 48px), var(--container));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green-dark);
+      font-size: .76rem;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(23, 141, 90, .11);
+    }
+
+    .section-heading {
+      max-width: 690px;
+      margin: 15px 0 0;
+      font-size: clamp(2.25rem, 4.2vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -.052em;
+      font-weight: 720;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      max-width: 590px;
+      margin: 24px 0 0;
+      color: var(--ink-soft);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 0;
+      background: rgba(247, 249, 247, .82);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(18px);
+      transition: padding .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .site-header.scrolled {
+      padding: 12px 0;
+      border-color: rgba(17, 35, 27, .08);
+      box-shadow: 0 8px 24px rgba(17, 35, 27, .035);
+    }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.17rem; font-weight: 760; letter-spacing: -.03em; }
+    .brand-mark {
+      position: relative;
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 11px 11px 11px 4px;
+      background: var(--ink);
+      box-shadow: 0 7px 18px rgba(17, 35, 27, .18);
+    }
+
+    .brand-mark::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #5add9d;
+      border: 2px solid var(--ink);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 31px; }
+    .nav-link { color: #4d5a54; font-size: .88rem; font-weight: 590; transition: color .2s ease; }
+    .nav-link:hover, .nav-link:focus-visible { color: var(--green-dark); }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      color: var(--green-dark);
+      background: rgba(223, 244, 233, .8);
+      border: 1px solid rgba(23, 141, 90, .14);
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 720;
+      letter-spacing: .02em;
+    }
+
+    .status-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #26aa70; box-shadow: 0 0 0 3px rgba(38, 170, 112, .12); }
+    .nav-toggle { display: none; width: 42px; height: 42px; padding: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+    .nav-toggle span, .nav-toggle::before, .nav-toggle::after { content: ""; display: block; width: 18px; height: 1.5px; margin: 4px auto; background: var(--ink); transition: transform .25s, opacity .25s; }
+    .nav-toggle[aria-expanded="true"] span { opacity: 0; }
+    .nav-toggle[aria-expanded="true"]::before { transform: translateY(5.5px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"]::after { transform: translateY(-5.5px) rotate(-45deg); }
+
+    .hero { padding: 96px 0 118px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, .94fr) minmax(480px, .76fr); align-items: center; gap: 85px; }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px 8px 9px;
+      color: #335145;
+      background: rgba(255, 255, 255, .72);
+      border: 1px solid rgba(17, 35, 27, .09);
+      border-radius: 999px;
+      box-shadow: 0 5px 16px rgba(17, 35, 27, .04);
+      font-size: .77rem;
+      font-weight: 670;
+    }
+
+    .hero-kicker span { padding: 3px 8px; color: #fff; background: var(--green); border-radius: 999px; font-size: .65rem; letter-spacing: .05em; text-transform: uppercase; }
+    h1 { max-width: 710px; margin: 25px 0 0; font-size: clamp(3.45rem, 6.4vw, 6.45rem); line-height: .92; letter-spacing: -.074em; font-weight: 730; text-wrap: balance; }
+    h1 .accent { display: block; color: var(--green); }
+    .hero-copy { max-width: 625px; margin: 30px 0 0; color: var(--ink-soft); font-size: clamp(1.03rem, 1.5vw, 1.18rem); line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      min-height: 51px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font-size: .91rem;
+      font-weight: 680;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+    .button:focus-visible, .nav-link:focus-visible, .nav-toggle:focus-visible { outline: 3px solid rgba(23, 141, 90, .28); outline-offset: 3px; }
+    .button-primary { color: #fff; background: var(--ink); box-shadow: 0 12px 25px rgba(17, 35, 27, .16); }
+    .button-primary:hover { background: #1e372b; box-shadow: 0 15px 30px rgba(17, 35, 27, .2); }
+    .button-secondary { background: rgba(255, 255, 255, .8); border-color: var(--line); }
+    .button-secondary:hover { border-color: #bdcbc3; background: #fff; }
+    .arrow { font-size: 1.12rem; transition: transform .2s ease; }
+    .button:hover .arrow { transform: translateX(3px); }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 27px; color: var(--ink-muted); font-size: .76rem; }
+    .mini-avatars { display: flex; padding-left: 7px; }
+    .mini-avatar { display: grid; width: 25px; height: 25px; margin-left: -7px; place-items: center; border: 2px solid var(--paper); border-radius: 50%; background: #e1e9e4; color: #385447; font-size: .56rem; font-weight: 800; }
+
+    .hero-visual { position: relative; isolation: isolate; }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 7% -10% -9%;
+      border-radius: 45% 55% 52% 48%;
+      background: linear-gradient(145deg, rgba(213, 242, 226, .8), rgba(240, 235, 226, .5));
+      filter: blur(2px);
+      transform: rotate(-4deg);
+    }
+
+    .phone-frame { position: relative; width: min(100%, 430px); margin: auto; padding: 10px; background: #16261f; border-radius: 37px; box-shadow: var(--shadow-lg); transform: rotate(1.5deg); }
+    .phone-frame::before { content: ""; position: absolute; z-index: 2; top: 6px; left: 50%; width: 58px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.28); transform: translateX(-50%); }
+    .chat-shell { overflow: hidden; background: #f3f2ed; border: 1px solid rgba(255, 255, 255, .12); border-radius: 29px; }
+    .chat-head { display: flex; align-items: center; gap: 11px; padding: 16px 17px 14px; color: #fff; background: #1e6e51; }
+    .back { opacity: .86; font-size: 1.2rem; }
+    .chat-logo { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: #fff; color: var(--green-dark); font-weight: 800; }
+    .chat-person { flex: 1; line-height: 1.25; }
+    .chat-person strong { display: block; font-size: .9rem; }
+    .chat-person small { opacity: .77; font-size: .68rem; }
+    .head-dots { letter-spacing: 2px; }
+    .chat-body { min-height: 445px; padding: 24px 17px 20px; background-color: #efece5; background-image: radial-gradient(rgba(30, 70, 52, .055) .8px, transparent .8px); background-size: 16px 16px; }
+    .concept-label { width: max-content; margin: 0 auto 22px; padding: 5px 10px; color: #757c77; background: rgba(255, 255, 255, .72); border-radius: 7px; font-size: .6rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; box-shadow: 0 2px 5px rgba(17,35,27,.05); }
+    .message { position: relative; max-width: 83%; margin-bottom: 11px; padding: 10px 12px 18px; border-radius: 6px 13px 13px 13px; font-size: .82rem; line-height: 1.5; box-shadow: 0 1px 2px rgba(17,35,27,.08); }
+    .message-customer { margin-left: auto; background: #daf7e6; border-radius: 13px 6px 13px 13px; }
+    .message-app { background: #fff; }
+    .message-time { position: absolute; right: 7px; bottom: 4px; color: #8a928d; font-size: .54rem; }
+    .slot-card { margin-top: 7px; padding: 13px; background: #fff; border-radius: 13px; box-shadow: 0 2px 8px rgba(17,35,27,.08); }
+    .slot-date { color: #66716b; font-size: .67rem; font-weight: 700; }
+    .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 9px; }
+    .slot { padding: 8px 3px; color: var(--green-dark); background: var(--green-pale); border: 1px solid #ccebdd; border-radius: 8px; font-size: .64rem; font-weight: 720; text-align: center; }
+    .chat-input { display: flex; align-items: center; gap: 8px; padding: 9px 12px 12px; background: #eeeae2; }
+    .input-pill { flex: 1; padding: 10px 14px; color: #979f9a; background: #fff; border-radius: 999px; font-size: .69rem; }
+    .send-dot { display: grid; width: 36px; height: 36px; place-items: center; color: #fff; background: var(--green); border-radius: 50%; font-size: .8rem; }
+    .floating-note { position: absolute; right: -18px; bottom: 52px; padding: 12px 15px; background: rgba(255, 255, 255, .94); border: 1px solid rgba(17,35,27,.08); border-radius: 14px; box-shadow: var(--shadow-sm); transform: rotate(-2deg); }
+    .floating-note strong { display: block; font-size: .77rem; }
+    .floating-note span { color: var(--ink-muted); font-size: .65rem; }
+    .check { display: inline-grid; width: 20px; height: 20px; margin-right: 6px; place-items: center; color: #fff; background: var(--green); border-radius: 50%; font-size: .66rem; }
+
+    .value-section { padding: 115px 0; background: var(--surface); border-block: 1px solid rgba(17, 35, 27, .06); }
+    .value-top { display: flex; align-items: end; justify-content: space-between; gap: 50px; }
+    .value-top .section-heading { max-width: 600px; }
+    .value-top .section-copy { max-width: 410px; margin: 0 0 5px; }
+    .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; margin-top: 65px; }
+    .value-card { min-height: 290px; padding: 31px; background: #fbfcfb; border: 1px solid var(--line); border-radius: var(--radius); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease; }
+    .value-card:hover { transform: translateY(-6px); border-color: #c8d7cf; box-shadow: var(--shadow-sm); }
+    .icon-box { position: relative; display: grid; width: 51px; height: 51px; place-items: center; background: var(--green-pale); border: 1px solid #d6eee2; border-radius: 15px; }
+    .icon-chat::before { content: ""; width: 21px; height: 16px; border: 2px solid var(--green); border-radius: 7px 7px 7px 3px; }
+    .icon-chat::after { content: "···"; position: absolute; top: 9px; color: var(--green); font-size: .85rem; font-weight: 900; letter-spacing: 1px; }
+    .icon-calendar::before { content: ""; width: 22px; height: 21px; border: 2px solid var(--green); border-radius: 5px; box-shadow: inset 0 6px 0 rgba(23,141,90,.13); }
+    .icon-calendar::after { content: ""; position: absolute; width: 2px; height: 5px; top: 12px; border-radius: 2px; background: var(--green); box-shadow: 8px 0 0 var(--green); transform: translateX(-4px); }
+    .icon-connect::before { content: ""; width: 9px; height: 9px; border: 2px solid var(--green); border-radius: 50%; box-shadow: 14px 0 0 -2px var(--green), 7px 13px 0 -2px var(--green); }
+    .icon-connect::after { content: ""; position: absolute; width: 18px; height: 15px; border-bottom: 2px solid var(--green); border-left: 2px solid var(--green); transform: rotate(-30deg); opacity: .6; }
+    .value-number { float: right; color: #a8b2ac; font-size: .72rem; font-weight: 700; letter-spacing: .08em; }
+    .value-card h3 { margin: 42px 0 10px; font-size: 1.22rem; letter-spacing: -.025em; }
+    .value-card p { margin: 0; color: var(--ink-soft); font-size: .91rem; line-height: 1.7; }
+
+    .works-section { padding: 130px 0; overflow: hidden; }
+    .centered { text-align: center; }
+    .centered .section-heading, .centered .section-copy { margin-inline: auto; }
+    .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; margin-top: 76px; }
+    .steps::before { content: ""; position: absolute; top: 40px; left: 16.5%; right: 16.5%; height: 1px; background: linear-gradient(90deg, transparent, #a9beb2 15%, #a9beb2 85%, transparent); }
+    .step { position: relative; text-align: center; }
+    .step-orbit { position: relative; z-index: 1; display: grid; width: 82px; height: 82px; margin: auto; place-items: center; background: var(--paper); border: 1px solid #cbd8d0; border-radius: 50%; box-shadow: 0 0 0 10px var(--paper), 0 9px 25px rgba(17,35,27,.07); }
+    .step-orbit::before { content: ""; width: 46px; height: 46px; border-radius: 14px; background: #fff; border: 1px solid var(--line); }
+    .step-symbol { position: absolute; color: var(--green-dark); font-size: 1rem; font-weight: 800; }
+    .step h3 { margin: 27px 0 6px; font-size: 1.12rem; letter-spacing: -.02em; }
+    .step p { max-width: 260px; margin: auto; color: var(--ink-soft); font-size: .84rem; }
+    .step-index { display: inline-block; margin-bottom: 8px; color: var(--green); font-size: .67rem; font-weight: 790; letter-spacing: .13em; }
+
+    .business-section { padding: 120px 0; background: var(--ink); color: #fff; overflow: hidden; }
+    .business-grid { display: grid; grid-template-columns: .87fr 1fr; align-items: center; gap: 100px; }
+    .business-section .eyebrow { color: #7fe0ad; }
+    .business-section .section-copy { color: #b6c3bd; }
+    .business-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
+    .business-item { position: relative; overflow: hidden; min-height: 162px; padding: 24px; background: #193126; border: 1px solid rgba(255,255,255,.09); border-radius: 18px; transition: background .25s, transform .25s var(--ease); }
+    .business-item:hover { background: #203c2f; transform: translateY(-4px); }
+    .business-item::after { content: ""; position: absolute; right: -30px; bottom: -45px; width: 100px; height: 100px; border: 1px solid rgba(113,225,164,.12); border-radius: 50%; box-shadow: 0 0 0 18px rgba(113,225,164,.03); }
+    .business-icon { display: grid; width: 39px; height: 39px; place-items: center; color: #8ae4b4; background: rgba(77,190,129,.1); border: 1px solid rgba(122,229,171,.12); border-radius: 12px; font-size: .68rem; font-weight: 800; letter-spacing: .03em; }
+    .business-item h3 { margin: 24px 0 0; font-size: .98rem; font-weight: 650; }
+
+    .preview-section { padding: 135px 0; background: #f4f6f4; }
+    .preview-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+    .preview-head .section-copy { max-width: 440px; margin-bottom: 4px; }
+    .dashboard-wrap { margin-top: 62px; padding: 13px; background: #dfe5e1; border: 1px solid #d3dcd7; border-radius: 26px; box-shadow: var(--shadow-lg); }
+    .dashboard { display: grid; grid-template-columns: 215px minmax(0, 1fr); min-height: 570px; overflow: hidden; background: #f9faf9; border-radius: 17px; }
+    .dash-side { padding: 23px 17px; color: #c9d4cf; background: #13271e; }
+    .dash-brand { display: flex; align-items: center; gap: 9px; color: #fff; font-size: .87rem; font-weight: 750; }
+    .dash-brand .brand-mark { width: 27px; height: 27px; background: #2ca86d; box-shadow: none; border-radius: 9px 9px 9px 3px; }
+    .dash-brand .brand-mark::before { width: 9px; height: 9px; }
+    .dash-brand .brand-mark::after { display: none; }
+    .dash-menu { margin-top: 35px; }
+    .dash-nav { display: flex; align-items: center; gap: 11px; margin: 7px 0; padding: 9px 11px; border-radius: 8px; color: #90a097; font-size: .7rem; }
+    .dash-nav.active { color: #fff; background: rgba(255,255,255,.08); }
+    .dash-nav-icon { width: 15px; height: 15px; border: 1.5px solid currentColor; border-radius: 5px; opacity: .75; }
+    .side-bottom { margin-top: 255px; padding: 13px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.06); border-radius: 10px; }
+    .side-bottom small { display: block; color: #7d9387; font-size: .55rem; }
+    .side-bottom strong { display: block; margin-top: 3px; color: #d5dfda; font-size: .64rem; }
+    .dash-main { padding: 27px 29px; min-width: 0; }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dash-title h3 { margin: 0; font-size: 1.17rem; letter-spacing: -.03em; }
+    .dash-title p { margin: 2px 0 0; color: #87918b; font-size: .63rem; }
+    .dash-actions { display: flex; gap: 8px; }
+    .dash-action { padding: 7px 10px; background: #fff; border: 1px solid #e0e6e2; border-radius: 8px; color: #58645e; font-size: .58rem; font-weight: 680; }
+    .dash-action.primary { color: #fff; background: var(--green); border-color: var(--green); }
+    .metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-top: 23px; }
+    .metric { padding: 16px; background: #fff; border: 1px solid #e2e8e4; border-radius: 12px; }
+    .metric-label { display: flex; align-items: center; gap: 7px; color: #7c8881; font-size: .57rem; font-weight: 650; }
+    .metric-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .metric:nth-child(2) .metric-dot { background: #d7a437; }
+    .metric:nth-child(3) .metric-dot { background: #759687; }
+    .metric strong { display: block; margin-top: 8px; font-size: 1.43rem; letter-spacing: -.04em; line-height: 1; }
+    .metric small { color: #a2aaa5; font-size: .51rem; }
+    .appointments { margin-top: 15px; background: #fff; border: 1px solid #e2e8e4; border-radius: 13px; }
+    .table-head { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; border-bottom: 1px solid #edf0ee; }
+    .table-head strong { font-size: .72rem; }
+    .table-head span { color: var(--green-dark); font-size: .55rem; font-weight: 700; }
+    .appointment-row { display: grid; grid-template-columns: 1.3fr .85fr .7fr .7fr; align-items: center; gap: 10px; padding: 13px 17px; border-bottom: 1px solid #f0f2f1; font-size: .59rem; }
+    .appointment-row:last-child { border: 0; }
+    .person { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .avatar { display: grid; flex: 0 0 auto; width: 28px; height: 28px; place-items: center; border-radius: 50%; background: #e7eee9; color: #526b5e; font-size: .55rem; font-weight: 800; }
+    .person-name { min-width: 0; }
+    .person-name strong { display: block; overflow: hidden; color: #263a30; font-size: .61rem; text-overflow: ellipsis; white-space: nowrap; }
+    .person-name small { display: block; color: #9aa39e; font-size: .48rem; }
+    .time-cell { color: #34483e; font-weight: 700; }
+    .service-cell { color: #718078; }
+    .pill { width: max-content; padding: 4px 7px; color: #14784c; background: #e5f6ed; border-radius: 999px; font-size: .47rem; font-weight: 720; }
+    .pill.waiting { color: #8c6819; background: #fbf3df; }
+    .pill.upcoming { color: #557066; background: #edf2ef; }
+    .dash-caption { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 22px; color: #7c8781; font-size: .71rem; }
+    .dash-caption::before { content: ""; width: 17px; height: 1px; background: #aeb9b3; }
+
+    .status-section { padding: 145px 0; }
+    .status-panel { position: relative; overflow: hidden; padding: 86px 50px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); text-align: center; box-shadow: var(--shadow-sm); }
+    .status-panel::before, .status-panel::after { content: ""; position: absolute; width: 250px; height: 250px; border: 1px solid #dcebe3; border-radius: 50%; }
+    .status-panel::before { left: -125px; top: -120px; box-shadow: 0 0 0 35px rgba(223,244,233,.28); }
+    .status-panel::after { right: -145px; bottom: -150px; box-shadow: 0 0 0 35px rgba(223,244,233,.28); }
+    .coming-badge { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; color: var(--green-dark); background: var(--green-pale); border: 1px solid #d2ecde; border-radius: 999px; font-size: .72rem; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+    .coming-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .status-panel h2 { position: relative; z-index: 1; margin: 24px 0 0; font-size: clamp(2.5rem, 5vw, 4.6rem); line-height: 1; letter-spacing: -.06em; text-wrap: balance; }
+    .status-panel p { position: relative; z-index: 1; max-width: 610px; margin: 24px auto 0; color: var(--ink-soft); font-size: 1.03rem; line-height: 1.75; }
+
+    footer { padding: 35px 0 43px; border-top: 1px solid var(--line); }
+    .footer-grid { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+    .footer-tagline { margin: 12px 0 0; color: var(--ink-soft); font-size: .83rem; }
+    .footer-meta { text-align: right; }
+    .footer-meta a { display: block; color: var(--green-dark); font-size: .8rem; font-weight: 690; }
+    .footer-meta p { margin: 6px 0 0; color: var(--ink-muted); font-size: .72rem; }
+
+    @media (max-width: 980px) {
+      .hero { padding-top: 75px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 75px; }
+      .hero-copy { max-width: 690px; }
+      .hero-visual { width: min(100%, 560px); margin-inline: auto; }
+      .value-top, .preview-head { display: block; }
+      .value-top .section-copy, .preview-head .section-copy { margin-top: 24px; }
+      .business-grid { gap: 55px; }
+      .dashboard { grid-template-columns: 165px minmax(0,1fr); }
+      .side-bottom { margin-top: 262px; }
+    }
+
+    @media (max-width: 780px) {
+      .container { width: min(calc(100% - 32px), var(--container)); }
+      .site-header { padding: 12px 0; }
+      .nav-toggle { display: block; }
+      .nav-links { position: absolute; top: calc(100% + 1px); left: 16px; right: 16px; display: none; padding: 13px; background: rgba(255,255,255,.98); border: 1px solid var(--line); border-radius: 15px; box-shadow: var(--shadow-sm); }
+      .nav-links.open { display: grid; }
+      .nav-link { padding: 10px 9px; }
+      .status-badge { width: max-content; margin: 6px 8px; }
+      .hero { padding: 61px 0 92px; }
+      h1 { font-size: clamp(3.25rem, 15vw, 5rem); }
+      .value-section, .works-section, .business-section, .preview-section { padding: 92px 0; }
+      .value-grid { grid-template-columns: 1fr; margin-top: 45px; }
+      .value-card { min-height: 230px; }
+      .steps { grid-template-columns: 1fr; gap: 53px; margin-top: 58px; }
+      .steps::before { top: 45px; bottom: 45px; left: 50%; right: auto; width: 1px; height: auto; background: linear-gradient(180deg, transparent, #a9beb2 12%, #a9beb2 88%, transparent); }
+      .step { background: var(--paper); }
+      .business-grid { grid-template-columns: 1fr; }
+      .dashboard-wrap { padding: 8px; margin-inline: -8px; overflow: hidden; }
+      .dashboard { display: block; min-height: 0; }
+      .dash-side { display: none; }
+      .dash-main { padding: 22px 17px; }
+      .status-section { padding: 95px 0; }
+      .status-panel { padding: 70px 25px; }
+    }
+
+    @media (max-width: 540px) {
+      .hero-kicker { font-size: .68rem; }
+      .hero-actions { align-items: stretch; }
+      .button { flex: 1 1 100%; }
+      .hero-note { align-items: flex-start; }
+      .phone-frame { padding: 7px; border-radius: 30px; }
+      .chat-shell { border-radius: 24px; }
+      .chat-body { min-height: 420px; padding: 20px 13px 17px; }
+      .floating-note { right: -4px; bottom: -35px; }
+      .slots { gap: 5px; }
+      .value-top .section-copy, .preview-head .section-copy { font-size: .98rem; }
+      .business-list { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .business-item { min-height: 135px; padding: 18px; }
+      .business-item h3 { margin-top: 20px; font-size: .87rem; }
+      .metric-row { gap: 7px; }
+      .metric { padding: 12px 10px; }
+      .metric strong { font-size: 1.15rem; }
+      .metric small { display: none; }
+      .appointment-row { grid-template-columns: 1.4fr .65fr .65fr; padding-inline: 12px; }
+      .service-cell { display: none; }
+      .dash-actions .dash-action:first-child { display: none; }
+      .status-panel::before, .status-panel::after { opacity: .55; }
+      .footer-grid { display: block; }
+      .footer-meta { margin-top: 28px; text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Appointer home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Appointer</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="nav-links" aria-expanded="false"><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <a class="nav-link" href="#how-it-works">How it works</a>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#businesses">For Businesses</a>
+        <a class="nav-link" href="#coming-soon">Coming Soon</a>
+        <span class="status-badge">In Development</span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content reveal is-visible">
+          <div class="hero-kicker"><span>New</span> A simpler appointment experience</div>
+          <h1 id="hero-title">Appointments.<span class="accent">Right inside WhatsApp.</span></h1>
+          <p class="hero-copy">Make booking appointments as easy as sending a message. Appointer is building a simpler way for businesses and customers to schedule, manage, and stay updated on appointments through WhatsApp.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#coming-soon">Coming Soon <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#how-it-works">See how it works <span class="arrow" aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-note">
+            <span class="mini-avatars" aria-hidden="true"><span class="mini-avatar">CL</span><span class="mini-avatar">SA</span><span class="mini-avatar">CO</span></span>
+            <span>Being shaped for clinics, salons, consultants and service businesses.</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Conceptual Appointer chat preview">
+          <div class="phone-frame">
+            <div class="chat-shell">
+              <div class="chat-head">
+                <span class="back" aria-hidden="true">‹</span>
+                <span class="chat-logo">A</span>
+                <span class="chat-person"><strong>Appointer</strong><small>appointment assistant</small></span>
+                <span class="head-dots" aria-hidden="true">•••</span>
+              </div>
+              <div class="chat-body">
+                <div class="concept-label">Concept preview</div>
+                <div class="message message-customer">Can I book an appointment for tomorrow?<span class="message-time">10:24</span></div>
+                <div class="message message-app">Sure. Here are the available slots.<span class="message-time">10:24</span></div>
+                <div class="slot-card">
+                  <div class="slot-date">Tomorrow · Available times</div>
+                  <div class="slots"><span class="slot">10:00 AM</span><span class="slot">11:30 AM</span><span class="slot">2:00 PM</span></div>
+                </div>
+                <div class="message message-customer" style="margin-top:11px">11:30 AM works for me.<span class="message-time">10:25</span></div>
+                <div class="message message-app">Perfect — your appointment is booked.<span class="message-time">10:25</span></div>
+              </div>
+              <div class="chat-input"><div class="input-pill">Message Appointer...</div><div class="send-dot" aria-hidden="true">➤</div></div>
+            </div>
+          </div>
+          <div class="floating-note"><strong><span class="check">✓</span>Booked for 11:30 AM</strong><span>Tomorrow · Appointment confirmed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="value-section" id="features" aria-labelledby="value-title">
+      <div class="container">
+        <div class="value-top reveal">
+          <div><span class="eyebrow">Built around simplicity</span><h2 class="section-heading" id="value-title">Booking shouldn't require another app.</h2></div>
+          <p class="section-copy">A familiar conversation can be the simplest path from “I need an appointment” to “You're booked.”</p>
+        </div>
+        <div class="value-grid">
+          <article class="value-card reveal"><span class="value-number">01</span><div class="icon-box icon-chat" aria-hidden="true"></div><h3>Book naturally</h3><p>Customers interact through a channel they already use, in a way that feels familiar from the first message.</p></article>
+          <article class="value-card reveal"><span class="value-number">02</span><div class="icon-box icon-calendar" aria-hidden="true"></div><h3>Manage appointments</h3><p>Keep scheduling and appointment communication organized, without making the process feel complicated.</p></article>
+          <article class="value-card reveal"><span class="value-number">03</span><div class="icon-box icon-connect" aria-hidden="true"></div><h3>Stay connected</h3><p>Make appointment updates and communication easier for businesses and their customers.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="works-section" id="how-it-works" aria-labelledby="works-title">
+      <div class="container">
+        <div class="centered reveal"><span class="eyebrow">A natural flow</span><h2 class="section-heading" id="works-title">From message to appointment.</h2><p class="section-copy">A straightforward experience designed around how people already communicate.</p></div>
+        <div class="steps">
+          <article class="step reveal"><span class="step-index">STEP 01</span><div class="step-orbit"><span class="step-symbol" aria-hidden="true">•••</span></div><h3>Start on WhatsApp</h3><p>Begin the conversation in a channel that's already part of the day.</p></article>
+          <article class="step reveal"><span class="step-index">STEP 02</span><div class="step-orbit"><span class="step-symbol" aria-hidden="true">10:00</span></div><h3>Choose an appointment</h3><p>See suitable availability and select a time that works.</p></article>
+          <article class="step reveal"><span class="step-index">STEP 03</span><div class="step-orbit"><span class="step-symbol" aria-hidden="true">✓</span></div><h3>You're booked</h3><p>Get a clear confirmation and keep the appointment in view.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="business-section" id="businesses" aria-labelledby="business-title">
+      <div class="container business-grid">
+        <div class="reveal"><span class="eyebrow">For appointment-led teams</span><h2 class="section-heading" id="business-title">Built for businesses that run on time.</h2><p class="section-copy">Appointer is being designed for businesses where every booking matters — and where a simpler appointment experience can make the day easier for everyone.</p></div>
+        <div class="business-list">
+          <article class="business-item reveal"><span class="business-icon">CL</span><h3>Clinics</h3></article>
+          <article class="business-item reveal"><span class="business-icon">SA</span><h3>Salons</h3></article>
+          <article class="business-item reveal"><span class="business-icon">CO</span><h3>Consultants</h3></article>
+          <article class="business-item reveal"><span class="business-icon">SV</span><h3>Service businesses</h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview-section" aria-labelledby="preview-title">
+      <div class="container">
+        <div class="preview-head reveal"><div><span class="eyebrow">Product in progress</span><h2 class="section-heading" id="preview-title">A clear view of the day.</h2></div><p class="section-copy">A conceptual look at how Appointer could help businesses keep appointments organized and easy to follow.</p></div>
+        <div class="dashboard-wrap reveal">
+          <div class="dashboard">
+            <aside class="dash-side" aria-label="Conceptual product navigation">
+              <div class="dash-brand"><span class="brand-mark" aria-hidden="true"></span>Appointer</div>
+              <div class="dash-menu"><div class="dash-nav active"><span class="dash-nav-icon"></span>Overview</div><div class="dash-nav"><span class="dash-nav-icon"></span>Appointments</div><div class="dash-nav"><span class="dash-nav-icon"></span>Customers</div><div class="dash-nav"><span class="dash-nav-icon"></span>Availability</div></div>
+              <div class="side-bottom"><small>Today</small><strong>Monday, 24 August</strong></div>
+            </aside>
+            <div class="dash-main">
+              <div class="dash-top"><div class="dash-title"><h3>Good morning</h3><p>Here's how today is looking.</p></div><div class="dash-actions"><span class="dash-action">Aug 24, 2026</span><span class="dash-action primary">+ Appointment</span></div></div>
+              <div class="metric-row"><div class="metric"><span class="metric-label"><i class="metric-dot"></i>Today's appointments</span><strong>08</strong><small>Across the working day</small></div><div class="metric"><span class="metric-label"><i class="metric-dot"></i>Upcoming</span><strong>05</strong><small>Still to come today</small></div><div class="metric"><span class="metric-label"><i class="metric-dot"></i>Completed</span><strong>03</strong><small>Finished appointments</small></div></div>
+              <div class="appointments"><div class="table-head"><strong>Today's appointments</strong><span>View schedule →</span></div>
+                <div class="appointment-row"><div class="person"><span class="avatar">AK</span><span class="person-name"><strong>Aarav Kapoor</strong><small>Booked on WhatsApp</small></span></div><div class="time-cell">10:00 AM</div><div class="service-cell">Consultation</div><span class="pill">Confirmed</span></div>
+                <div class="appointment-row"><div class="person"><span class="avatar">MR</span><span class="person-name"><strong>Meera Rao</strong><small>Booked on WhatsApp</small></span></div><div class="time-cell">11:30 AM</div><div class="service-cell">Follow-up</div><span class="pill waiting">Waiting</span></div>
+                <div class="appointment-row"><div class="person"><span class="avatar">IS</span><span class="person-name"><strong>Ishaan Shah</strong><small>Booked on WhatsApp</small></span></div><div class="time-cell">2:00 PM</div><div class="service-cell">Consultation</div><span class="pill upcoming">Upcoming</span></div>
+                <div class="appointment-row"><div class="person"><span class="avatar">NP</span><span class="person-name"><strong>Naina Patel</strong><small>Booked on WhatsApp</small></span></div><div class="time-cell">3:30 PM</div><div class="service-cell">Follow-up</div><span class="pill upcoming">Upcoming</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-caption">Conceptual product preview with sample data</div>
+      </div>
+    </section>
+
+    <section class="status-section" id="coming-soon" aria-labelledby="status-title">
+      <div class="container"><div class="status-panel reveal"><span class="coming-badge">Coming Soon</span><h2 id="status-title">We're building Appointer.</h2><p>Appointer is currently in development. We're focused on creating a simple, reliable appointment experience built around WhatsApp.</p></div></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>Appointer</span></a><p class="footer-tagline">Appointments. Right inside WhatsApp.</p></div>
+      <div class="footer-meta"><a href="https://appointer.in">appointer.in</a><p>© 2026 Appointer</p></div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const syncHeader = () => header.classList.toggle('scrolled', window.scrollY > 12);
+    syncHeader();
+    window.addEventListener('scroll', syncHeader, { passive: true });
+
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
+      links.classList.toggle('open', !open);
+    });
+
+    links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation');
+      links.classList.remove('open');
+    }));
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && links.classList.contains('open')) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+        links.classList.remove('open');
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', event => {
+      if (links.classList.contains('open') && !event.target.closest('.nav')) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+        links.classList.remove('open');
+      }
+    });
+
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -45px' });
+      document.querySelectorAll('.reveal:not(.is-visible)').forEach(element => observer.observe(element));
+    } else {
+      document.querySelectorAll('.reveal').forEach(element => element.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
