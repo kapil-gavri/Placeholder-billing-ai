@@ -4,107 +4,80 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Appointer — Clinic appointments and live queues</title>
-  <meta name="description" content="Appointer helps outpatient clinics manage doctor schedules, appointments, patient check-in, WhatsApp updates and live queues.">
-  <meta name="theme-color" content="#f6f8f6">
+  <meta name="description" content="Manage Clinic appointments, patient check-in and live queues in one calm Appointer workspace.">
+  <meta name="theme-color" content="#061316">
+  <meta property="og:title" content="Appointer — Clinic appointments and live queues">
+  <meta property="og:description" content="A smoother day for every clinic.">
+  <meta property="og:image" content="https://www.appointer.in/og.webp">
+  <meta property="og:type" content="website">
   <link rel="canonical" href="https://www.appointer.in/">
+  <link rel="icon" href="/appointer-brand-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
   <header class="site-header">
-    <nav class="container nav" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="Appointer home"><span class="brand-mark" aria-hidden="true">A</span><span>Appointer</span></a>
-      <div class="nav-links">
-        <a href="#product">Product</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#trust">Privacy &amp; trust</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a class="support-link" href="/support">Support</a>
-      </div>
-    </nav>
+    <a class="brand" href="#top" aria-label="Appointer home"><img src="/appointer-brand-icon.svg" alt=""><strong>Appointer</strong></a>
+    <nav aria-label="Main navigation"><a href="#product">Product</a><a href="#how-it-works">How it works</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <div class="nav-actions"><a href="https://staging.appointer.in/login">Log in</a><a class="button small" href="https://staging.appointer.in/signup">Get started <span>→</span></a></div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Clinic appointments and live queues</p>
-          <h1>A calmer clinic day, from booking to visit completion.</h1>
-          <p class="lead">Appointer helps outpatient clinics coordinate doctor schedules, appointments, patient check-in and live queues. Patients receive useful updates through the Clinic’s own WhatsApp number.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#how-it-works">See how it works</a>
-            <a class="button secondary" href="mailto:support@appointer.in">Contact support</a>
+      <div class="hero-copy">
+        <p class="kicker">CLINIC FLOW. MADE SIMPLE.</p>
+        <h1>A smoother day<br><span>for every clinic</span></h1>
+        <p class="lede">Manage appointments, queues, and patient flow — all in one simple app.</p>
+        <div class="hero-actions">
+          <a class="button" href="https://staging.appointer.in/signup">Get started <span>→</span></a>
+          <div class="whatsapp-proof"><b>✦</b><span><strong>Book on WhatsApp</strong><small>Say “Hi” → choose a slot → confirmed</small></span></div>
+        </div>
+      </div>
+
+      <div class="visual" aria-label="Appointer mobile queue preview">
+        <div class="phone-shadow"></div>
+        <div class="phone"><div class="notch"></div><div class="screen">
+          <div class="status"><b>9:41</b><span>● ◒ ▰</span></div>
+          <header><div><img src="/appointer-brand-icon.svg" alt=""><strong>Appointer</strong></div><span>◌</span></header>
+          <p>Today</p>
+          <div class="stats"><article><b>24</b><span>Scheduled</span></article><article><b>5</b><span>In Queue</span></article><article><b>2</b><span>In Consult</span></article><article><b>17</b><span>Done</span></article></div>
+          <div class="queue-head"><strong>Patient Queue</strong><span>See all</span></div>
+          <div class="patients">
+            <div><b>1</b><i>RS</i><span><strong>Riya Sharma</strong><small>10:00 AM</small></span><em>Waiting</em></div>
+            <div><b>2</b><i>AM</i><span><strong>Arjun Mehta</strong><small>10:20 AM</small></span><em>In Consult</em></div>
+            <div><b>3</b><i>NV</i><span><strong>Neha Verma</strong><small>10:40 AM</small></span><em>Next</em></div>
+            <div><b>4</b><i>KK</i><span><strong>Kabir Khan</strong><small>11:00 AM</small></span><em>Scheduled</em></div>
           </div>
-          <p class="pilot-note"><span></span> Currently operating as a controlled clinic pilot</p>
-        </div>
-        <aside class="summary-card" aria-label="Appointer product summary">
-          <p class="card-label">One coordinated journey</p>
-          <ol>
-            <li><strong>Book</strong><span>Clinic staff or the Clinic’s WhatsApp journey creates the appointment.</span></li>
-            <li><strong>Check in</strong><span>The reserved Token becomes active when the patient arrives.</span></li>
-            <li><strong>Run the queue</strong><span>Authorized Clinic staff call and complete visits in order.</span></li>
-          </ol>
-        </aside>
+          <footer><span><b>⌂</b>Home</span><span><b>□</b>Appointments</span><span><b>♙</b>Patients</span><span><b>☰</b>More</span></footer>
+        </div></div>
+      </div>
+
+      <aside class="journey" aria-label="WhatsApp appointment flow">
+        <ol><li><b>✦</b><span>Patient messages<br>your clinic</span></li><li><b>□</b><span>Clinic books<br>an appointment</span></li><li><b>✓</b><span>Patient gets<br>confirmation</span></li></ol>
+        <small>All through<br>WhatsApp</small>
+      </aside>
+    </section>
+
+    <section id="product" class="section">
+      <div class="section-head"><p>PRODUCT</p><h2>The practical tools a Clinic needs each day.</h2><span>Appointer keeps the appointment book, reception desk and consultation queue working from the same information.</span></div>
+      <div class="features">
+        <article><b>01</b><h3>Schedules and appointments</h3><p>Set each Doctor’s consulting windows, breaks, closures and capacity. Staff can book, reschedule, cancel and add walk-ins.</p></article>
+        <article><b>02</b><h3>Check-in and live queue</h3><p>Reception checks patients in while authorized staff and Doctors operate the queue in scheduled Token order.</p></article>
+        <article><b>03</b><h3>Private patient updates</h3><p>Patients receive confirmations, private appointment links and useful turn updates without creating an Appointer account.</p></article>
+        <article><b>04</b><h3>Role-based Clinic access</h3><p>Clinic admins, receptionists and Doctors get the controls they need without exposing unrelated Clinic data.</p></article>
       </div>
     </section>
 
-    <section class="section" id="product">
-      <div class="container">
-        <p class="eyebrow">The product</p>
-        <h2>Practical tools for outpatient Clinics.</h2>
-        <p class="section-intro">The appointment book, reception desk and consultation queue work from the same information.</p>
-        <div class="feature-grid">
-          <article><span>01</span><h3>Schedules and appointments</h3><p>Set Doctor consulting windows, breaks, closures and capacity. Authorized staff can book, reschedule, cancel and add walk-ins.</p></article>
-          <article><span>02</span><h3>Check-in and live queue</h3><p>Reception checks patients in while Clinic staff operate the queue using the Clinic’s configured schedule and Token order.</p></article>
-          <article><span>03</span><h3>Clinic-owned WhatsApp</h3><p>When enabled by a Clinic, patients can receive requested booking confirmations, reminders and queue updates from that Clinic’s number.</p></article>
-          <article><span>04</span><h3>Role-based access</h3><p>Clinic administrators, receptionists and Doctors receive controls appropriate to their responsibilities without access to unrelated Clinics.</p></article>
-        </div>
-      </div>
+    <section id="how-it-works" class="flow">
+      <div><p class="label">HOW IT WORKS</p><h2>How Appointer works in a real Clinic.</h2><p>The same appointment and queue information follows the patient through the full visit.</p><a href="https://staging.appointer.in/signup">Set up your Clinic →</a></div>
+      <ol><li><span>01</span><div><strong>Set up the Clinic</strong><small>Create the Clinic and first Doctor, then add consulting hours.</small></div></li><li><span>02</span><div><strong>Open booking</strong><small>Staff can book appointments and walk-ins; WhatsApp can guide patients too.</small></div></li><li><span>03</span><div><strong>Check patients in</strong><small>A reserved Token becomes active when the patient arrives.</small></div></li><li><span>04</span><div><strong>Run the live queue</strong><small>The Clinic team calls patients in order and completes each visit.</small></div></li></ol>
     </section>
 
-    <section class="section soft" id="how-it-works">
-      <div class="container">
-        <p class="eyebrow">How it works</p>
-        <h2>From appointment request to completed visit.</h2>
-        <div class="steps">
-          <article><b>1</b><div><h3>The Clinic configures its schedule</h3><p>Doctor availability, consulting windows, breaks and closures remain under Clinic control.</p></div></article>
-          <article><b>2</b><div><h3>An appointment is requested</h3><p>Clinic staff can book directly. Where WhatsApp is enabled, a patient can follow the Clinic’s guided booking journey.</p></div></article>
-          <article><b>3</b><div><h3>The patient receives operational updates</h3><p>Appointer sends only the appointment and queue communications the patient agreed to receive.</p></div></article>
-          <article><b>4</b><div><h3>The Clinic operates the visit</h3><p>Reception and Doctors manage check-in, calling, consultation and completion from the Clinic dashboard.</p></div></article>
-        </div>
-      </div>
-    </section>
+    <section id="about" class="about"><p class="label">ABOUT</p><h2>Built to reduce uncertainty in outpatient care.</h2><p>Appointer is a worldwide product for coordinating appointments and live patient queues at one physical Clinic location. It is designed to keep staff in control, keep patients informed and limit unnecessary disclosure of patient information.</p><p>Appointer does not store clinical notes, diagnoses, prescriptions or medical records. Patient payments and automated subscription billing are not part of the controlled pilot.</p></section>
 
-    <section class="section" id="trust">
-      <div class="container trust-grid">
-        <div>
-          <p class="eyebrow">Privacy and trust</p>
-          <h2>Limited to appointment and queue coordination.</h2>
-          <p class="section-intro">Appointer is operated by <strong>Livi Enterprises</strong>. It is not a medical-record, diagnostic, payment or emergency service.</p>
-        </div>
-        <div class="trust-list">
-          <article><h3>Clear WhatsApp consent</h3><p>Patients are told which Clinic will message them and what updates to expect. Replying <strong>STOP</strong> ends future automated updates; <strong>START</strong> resumes them.</p></article>
-          <article><h3>No unsolicited outreach</h3><p>Marketing, spam, purchased contact lists, misleading identities and unrelated outreach are prohibited.</p></article>
-          <article><h3>Data minimisation</h3><p>The controlled product does not collect clinical notes, diagnoses, prescriptions, insurance information or patient payment details.</p></article>
-          <article><h3>Accessible controls</h3><p>Read our <a href="/privacy">Privacy Notice</a>, <a href="/terms">Terms</a>, or <a href="/data-deletion">data-deletion instructions</a>.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact-section">
-      <div class="container contact-card">
-        <div><p class="eyebrow">Support</p><h2>Questions about Appointer?</h2><p>For Clinic setup, account access, WhatsApp messaging, privacy or deletion requests, contact the Appointer support channel.</p></div>
-        <a class="button primary" href="mailto:support@appointer.in">support@appointer.in</a>
-      </div>
-    </section>
+    <section id="contact" class="contact"><div><p>CONTACT</p><h2>Talk to Appointer support.</h2><span>For Clinic setup, verification, account access or help during a Clinic day, email our support channel.</span></div><div><a class="button light" href="mailto:support@appointer.in">Email support</a><a href="mailto:support@appointer.in">support@appointer.in</a></div></section>
   </main>
 
-  <footer>
-    <div class="container footer-grid">
-      <div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">A</span><span>Appointer</span></a><p>Operated by Livi Enterprises</p></div>
-      <nav aria-label="Legal and support"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/data-deletion">Data deletion</a><a href="/support">Support</a></nav>
-      <p>© 2026 Appointer</p>
-    </div>
-  </footer>
+  <footer class="site-footer"><a class="brand" href="#top"><img src="/appointer-brand-icon.svg" alt=""><strong>Appointer</strong></a><p>Appointer is operated by Livi Enterprises.</p><nav aria-label="Legal and support"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/data-deletion">Data deletion</a><a href="/support">Support</a><span>© 2026 Livi Enterprises</span></nav></footer>
+  <a class="mobile-cta" href="https://staging.appointer.in/signup">Get started →</a>
 </body>
 </html>

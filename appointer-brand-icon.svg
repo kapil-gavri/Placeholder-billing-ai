@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mint" x1="14" y1="84" x2="52" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66E7D3"/>
+      <stop offset="1" stop-color="#6CE8DC"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="52" y1="11" x2="88" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#49BEE4"/>
+      <stop offset="1" stop-color="#3B9FD7"/>
+    </linearGradient>
+    <linearGradient id="dot" x1="43" y1="67" x2="66" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#45D9C8"/>
+      <stop offset="1" stop-color="#4BD6B5"/>
+    </linearGradient>
+  </defs>
+  <path d="M16 83.5L44.2 17.8C45.8 14 48 12 51.8 12" stroke="url(#mint)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50.5 67.5H55.2C61.8 67.5 67 72.7 67 79.2C67 82.4 64.4 85 61.2 85H50.5C44.2 85 39 79.8 39 73.5C39 70.2 41.7 67.5 45 67.5H50.5Z" fill="url(#dot)"/>
+  <path d="M52 12.2C55.2 12.2 57.6 14 59.1 17.4L87 83.5" stroke="url(#blue)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
